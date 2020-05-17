@@ -79,9 +79,9 @@ function LoginPage(props) {
           handleReset,
         } = props;
         return (
-          <div className="app" style={{ backgroundColor: '#0069FF', color: '#fff'}}>
+          <div className="app" style={{ backgroundColor: '#0069FF', color: '#fff' }}>
 
-            <Title level={2} style={{ color: '#fff' }}>Stackoverflow-lite</Title>
+            <Title level={2} style={{ color: '#fff' }}>Stackoverflow-<span style={{ color: '#FFCB08' }}>lite</span></Title>
             <div className="container">
               <h2>Sign In</h2>
               <form onSubmit={handleSubmit} style={{ width: '350px' }}>
@@ -132,7 +132,7 @@ function LoginPage(props) {
                     forgot password
                   </a>
                   <div>
-                    <Button type="primary"  htmlType="submit" className="login-form-button" style={{ minWidth: '100%' }} disabled={isSubmitting} onSubmit={handleSubmit}>
+                    <Button type="primary" htmlType="submit" className="login-form-button" style={{ minWidth: '100%' }} disabled={isSubmitting} onSubmit={handleSubmit}>
                       Log in
                 </Button>
                   </div>
@@ -140,7 +140,7 @@ function LoginPage(props) {
                 </Form.Item>
               </form>
             </div>
-            <div>copyright @ 2020 politco by taiwo</div>
+            <div>copyright @ 2020 stackoverflow-lite by taiwo</div>
           </div>
         );
       }}
