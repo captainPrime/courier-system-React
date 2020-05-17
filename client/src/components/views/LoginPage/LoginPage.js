@@ -81,7 +81,7 @@ function LoginPage(props) {
         return (
           <div className="app" style={{ backgroundColor: '#0069FF', color: '#fff'}}>
 
-            <Title level={2} style={{ color: '#fff' }}>Politico</Title>
+            <Title level={2} style={{ color: '#fff' }}>Stackoverflow-lite</Title>
             <div className="container">
               <h2>Sign In</h2>
               <form onSubmit={handleSubmit} style={{ width: '350px' }}>
