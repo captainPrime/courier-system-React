@@ -100,7 +100,7 @@ function RegisterPage(props) {
         } = props;
         return (
           <div className="app" style={{ backgroundColor: '#0069FF', color: '#fff' }}>
-            <Title level={2} style={{ color: '#fff' }}>Stackoverflow-lite</Title>
+            <Title level={2} style={{ color: '#fff' }}>Stackoverflow-<span  style={{color: '#FFCB08'}}>lite</span></Title>
             <div className="container">
               <h2>Sign up</h2>
               <Form style={{ minWidth: '375px' }} {...formItemLayout} onSubmit={handleSubmit} >
@@ -197,7 +197,7 @@ function RegisterPage(props) {
                 </Form.Item>
               </Form>
             </div>
-            <div>copyright @ 2020 politco by taiwo</div>
+            <div>copyright @ 2020 Stackoverflow-lite by taiwo</div>
           </div>
         );
       }}
