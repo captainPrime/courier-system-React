@@ -15,7 +15,8 @@ const config = require("./config/key");
 //   .catch(err => console.error(err));
 
 const mongoose = require("mongoose");
-const connect = mongoose.connect(config.mongoURI,
+const connect = mongoose.connect(/*config.mongoURI*/ 'mongodb+srv://Taiwo:superdude007@react-blog-ycmiv.mongodb.net/test?retryWrites=true&w=majority',
+
   {
     useNewUrlParser: true, useUnifiedTopology: true,
     useCreateIndex: true, useFindAndModify: false
