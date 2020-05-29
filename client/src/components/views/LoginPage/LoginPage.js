@@ -79,12 +79,11 @@ function LoginPage(props) {
           handleReset,
         } = props;
         return (
-          <div className="app" style={{ backgroundColor: '#0069FF', color: '#fff' }}>
+          <div className="app" style={{  }}>
 
-            <Title level={2} style={{ color: '#fff' }}>Stackoverflow-<span style={{ color: '#FFCB08' }}>lite</span></Title>
-            <div className="container">
+            <div className="container" style={{}}>
               <h2>Sign In</h2>
-              <form onSubmit={handleSubmit} style={{ width: '350px' }}>
+              <form onSubmit={handleSubmit} className="container2">
 
                 <Form.Item required>
                   <Input

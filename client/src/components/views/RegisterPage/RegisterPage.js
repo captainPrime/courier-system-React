@@ -70,8 +70,9 @@ function RegisterPage(props) {
             email: values.email,
             password: values.password,
             name: values.name,
-            lastname: values.lastname,
-            image: `http://gravatar.com/avatar/${moment().unix()}?d=identicon`
+            lastname: values.lastName,
+            image: `http://gravatar.com/avatar/${moment().unix()}?d=identicon`,
+            UI: "#"+Math.random().toString().slice(2, 11)
           };
 
           dispatch(registerUser(dataToSubmit)).then(response => {
@@ -99,11 +100,11 @@ function RegisterPage(props) {
           handleReset,
         } = props;
         return (
-          <div className="app" style={{ backgroundColor: '#0069FF', color: '#fff' }}>
-            <Title level={2} style={{ color: '#fff' }}>Stackoverflow-<span  style={{color: '#FFCB08'}}>lite</span></Title>
-            <div className="container">
+          <div className="app" style={{  }}>
+            {/* <Title level={2} style={{  }}>Stackoverflow-<span style={{ color: '#FFCB08' }}>lite</span></Title> */}
+            <div className="container" style={{ paddingBottom: 0, paddingTop: '15px' }}>
               <h2>Sign up</h2>
-              <Form style={{ minWidth: '375px' }} {...formItemLayout} onSubmit={handleSubmit} >
+              <Form className="container2" {...formItemLayout} onSubmit={handleSubmit} >
 
                 <Form.Item required label="Name">
                   <Input
@@ -197,7 +198,7 @@ function RegisterPage(props) {
                 </Form.Item>
               </Form>
             </div>
-            <div>copyright @ 2020 Stackoverflow-lite by taiwo</div>
+
           </div>
         );
       }}
