@@ -248,7 +248,7 @@ function InlandRequest(props) {
 
 
     return (
-        <div style={{ padding: '40px' }}>
+        <div style={{ paddingTop: '69px' }}>
             <h3>General Information</h3>
 
             <form>
@@ -335,7 +335,7 @@ function InlandRequest(props) {
                     </TextArea>
                 </Form.Item>
 
-                <h3>General Information</h3>
+                <h3>Cargo Information</h3>
 
                 <Row gutter={[16, 16]}>
                     <Col lg={3} md={6} xs={24} >

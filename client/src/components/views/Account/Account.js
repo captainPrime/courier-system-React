@@ -28,16 +28,16 @@ function Account(props) {
     }
 
     return (
-        <div style={{ paddingTop: '40px', }}>
+        <div style={{ paddingTop: '69px', }}>
 
             {Profile && Profile.map((user, i) => {
 
                 return (
-                    <div style={{ paddingTop: '40px', }}>
+                    <div style={{ padding: '10px', }}>
                         <h2>Account {user.UI}</h2>
                         <form>
                             <div>
-                                <div style={{ border: 'solid 1px lightgrey', padding: '20px' }}>
+                                <div style={{ border: 'solid 1px lightgrey', padding: '10px' }}>
                                     <Descriptions title='Account Information'>
                                         <Descriptions.Item label='FirstName'><span style={{ fontWeight: 'bold' }}>{user.name}</span></Descriptions.Item>
                                         <Descriptions.Item label='LastName'><span style={{ fontWeight: 'bold' }}>{user.lastname}</span></Descriptions.Item>

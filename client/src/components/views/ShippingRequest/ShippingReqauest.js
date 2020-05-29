@@ -240,7 +240,7 @@ function ShippingRequest(props) {
     //----------------------------------------------------------------------------------
 
     return (
-        <div style={{ paddingTop: '5px', width: '90%', margin: '3em auto' }}>
+        <div style={{ paddingTop: '69px', width: '90%', margin: '3em auto' }}>
             <Title level={3} >Cargo Details</Title>
             <form >
                 <Row gutter={[16, 16]}>

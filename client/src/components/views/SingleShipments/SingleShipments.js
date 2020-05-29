@@ -22,7 +22,7 @@ function SingleShipments(props) {
     return (
         <div className="postPage" style={{ width: '100%' }}>
             {requestType === "shipping request" ?
-                <div style={{ paddingTop: '40px', }}>
+                <div style={{ paddingTop: '60px', }}>
                     <h2>{requestType} </h2>
                     <form>
                         <div>
