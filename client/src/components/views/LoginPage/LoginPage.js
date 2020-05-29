@@ -139,7 +139,8 @@ function LoginPage(props) {
                 </Form.Item>
               </form>
             </div>
-            <div>copyright @ 2020 stackoverflow-lite by taiwo</div>
+            <br/>
+            <div>copyright @ 2020 CMS by taiwo</div>
           </div>
         );
       }}

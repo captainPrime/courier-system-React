@@ -191,12 +191,13 @@ function InlandRequest(props) {
     }
 
     const onSubmit = (event) => {
-        //event.preventDefault()
-        /*   if(origination){
+        //
+          if(!origination || !destination || !pickUptime || !period || !description){
+            event.preventDefault()
               message.error("please fill out the stared sections")
           }
           
-          else{ */
+          else{ 
         const variables = {
             writer: props.user.userData._id,
             uid: uuid(),
@@ -242,10 +243,11 @@ function InlandRequest(props) {
                 }
             })
 
-        /*  } */
+         } 
 
     }
 
+    
 
     return (
         <div style={{ paddingTop: '69px' }}>
