@@ -16,8 +16,6 @@ body {
     "Segoe UI Emoji", "Segoe UI Symbol";
   font-size: 14px;
   line-height: 1.5;
-  color: #fff;
-  background-color: #1890FF;
 }
 
 .app {
@@ -32,6 +30,26 @@ input.error {
   border-color: red;
 }
 
+table{
+  font-display: arial, san-serif;
+  border-collapse: collapse;
+  width: 100%;
+  font-weight: bold
+}
+
+td, th{
+  border: 1px solid #dddddd;
+  text-align: left;
+  padding: 8px;
+  border-collapse: collapse;
+ 
+}
+
+tr:nth-child(even){
+  background-color: #dddddd;
+  font-weight: bold
+}
+
 
 .input-feedback {
   color: red;
@@ -43,5 +61,23 @@ input.error {
   background-color: #FFFFFF;
   padding: 40px;
   border-radius: 6px;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,.2), 0 6px 20px 0 rgba(0,0,0,.19)
+}
+
+.container2{
+  width: 350px  
+}
+
+/* .List-Area{
+  background-color: rgb(247, 247, 247);
+  border-radius: 3px;
+  padding: 10px;
+  padding-bottom: 50vh;
   
+} */
+
+@media (max-width: 575.98px) { 
+  .container2{
+    width: 250px;
+  }
 }

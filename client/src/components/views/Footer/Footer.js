@@ -7,9 +7,9 @@ function Footer() {
             height: '80px', display: 'flex',
             flexDirection: 'column', alignItems: 'center',
             justifyContent: 'center', fontSize:'1rem',
-            backgroundColor: '#0069FF', color: '#fff'
+         
         }}>
-           <p> Happy Coding  <Icon type="smile" /></p>
+           <p> &copy; 2020 Taiwo Oyindamola <Icon type="smile" /></p>
         </div>
     )
 }

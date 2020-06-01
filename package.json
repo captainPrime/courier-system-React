@@ -1,3 +1,4 @@
+
 {
   "name": "react-boiler-plate",
   "version": "1.0.0",
@@ -31,6 +32,9 @@
     "react-redux": "^5.0.7",
     "saslprep": "^1.0.3",
     "supports-color": "^7.1.0",
+    "uuid": "^8.1.0"
+  },
+  "devDependencies": {
     "concurrently": "^4.1.0",
     "nodemon": "^1.19.1"
   },
