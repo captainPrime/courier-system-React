@@ -16,6 +16,7 @@ router.post("/shippingRequest", auth, (req, res, next) => {
 
     const shippingrequest = new ShippingRequest({
         writer: req.body.writer,
+        userEmail: req.user.email,
         uid: req.body.uid,
         dimension: req.body.dimension,
         cargo: req.body.cargo,
@@ -136,10 +137,63 @@ router.post("/getShippingRequest", auth, (req, res) => {
     }
 });
 
+router.post("/getAdminInlandRequest", (req, res) => {
+
+    const order = req.body.order ? req.body.order : 'desc'
+    const sortBy = req.body.sortBy ? req.body.sortBy : '_id'
+    const limit = req.body.limit ? parseInt(req.body.limit) : 100
+    const skip = parseInt(req.body.skip)
+
+    InlandRequest.find()
+        .sort([[sortBy, order]])
+        .skip(skip)
+        .limit(limit)
+        .exec((err, shipment) => {
+            if (err) return res.status(400).json({
+
+                success: false,
+                message: 'failed to fetch request'
+            })
+
+            return res.status(200).json({
+                success: true,
+                AllShippingRequest: shipment,
+
+            })
+        })
+
+})
+router.post("/getAdminShippingRequest", (req, res) => {
+
+    const order = req.body.order ? req.body.order : 'desc'
+    const sortBy = req.body.sortBy ? req.body.sortBy : '_id'
+    const limit = req.body.limit ? parseInt(req.body.limit) : 100
+    const skip = parseInt(req.body.skip)
+
+    ShippingRequest.find()
+        .sort([[sortBy, order]])
+        .skip(skip)
+        .limit(limit)
+        .exec((err, shipment) => {
+            if (err) return res.status(400).json({
+
+                success: false,
+                message: 'failed to fetch request'
+            })
+
+            return res.status(200).json({
+                success: true,
+                AllShippingRequest: shipment,
+
+            })
+        })
+
+})
+
 router.get("/shipment_by_id", (req, res) => {
 
     let type = req.query.type
-    let shipmentId =req.query.id
+    let shipmentId = req.query.id
     if (type === "inland request") {
         let shipmentId = req.query.id
         InlandRequest.find({ '_id': { $in: shipmentId } })
@@ -160,5 +214,47 @@ router.get("/shipment_by_id", (req, res) => {
             })
     }
 });
+
+router.post("/updateRequest", (req, res) => {
+    let type = req.query.type
+    let shipmentId = req.query.id
+    if (type === "inland request") {
+        InlandRequest.findOneAndUpdate(
+            { _id: shipmentId },
+            {
+                $set: {
+                    trackingID: req.body.trackingid,
+                    status: req.body.status
+                }
+            },
+            {new: true},
+            (err) => {
+                if(err) res.status(400).send(err)
+                res.status(200).json({
+                    success: true,
+                })
+            }
+        )
+    }
+
+    else if (type === "shipping request") {
+        ShippingRequest.findOneAndUpdate(
+            { _id: shipmentId },
+            {
+                $set: {
+                    trackingID: req.body.trackingid,
+                    status: req.body.status
+                }
+            },
+            {new: true},
+            (err) => {
+                if(err) res.status(400).send(err)
+                res.status(200).json({
+                    success: true,
+                })
+            }
+        )
+    }
+})
 
 module.exports = router;

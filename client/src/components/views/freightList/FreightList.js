@@ -31,8 +31,8 @@ function FreightList(props) {
 
     const handleRequestList = (value) => {
         setRequest(value)
-   /*      document.getElementById('firstField').value = ''
-        document.getElementById('secondField').value = '' */
+        /*      document.getElementById('firstField').value = ''
+             document.getElementById('secondField').value = '' */
     }
 
     const setDefault1 = (event) => {
@@ -51,11 +51,11 @@ function FreightList(props) {
             setSearchValue(value)
             setSearchName("dryCargo")
             document.getElementById('secondField').disabled = true
-          
+
 
             if (value === "") {
                 document.getElementById('secondField').disabled = false
-               
+
             }
 
         }
@@ -64,16 +64,38 @@ function FreightList(props) {
             setSearchValue(value)
             setSearchName("vehicle")
             document.getElementById('firstField').disabled = true
-          
+
 
 
             if (value === "") {
                 document.getElementById('firstField').disabled = false
-           
+
             }
         }
 
     }
+
+
+    function getRequest(params) {
+        Axios.post(`/api/shipping/getShippingRequest?type=${Request} `, params)
+            .then(response => {
+                if (response.data.success) {
+                    setResult(response.data.AllShippingRequest)
+                    //console.log(response.data.AllShippingRequest)
+                    setLenght(response.data.postLength)
+
+                    if (Request === "search") {
+                        const shipmentArray = []
+
+                        shipmentArray.push(response.data.AllShippingRequest)
+
+                        setShippingArray(shipmentArray)
+                    }
+                }
+            })
+
+    }
+
 
     const onSubmit = () => {
 
@@ -86,28 +108,13 @@ function FreightList(props) {
 
         //console.log(variables.searchvalue)
 
-        Axios.post(`/api/shipping/getShippingRequest?type=${Request} `, variables)
-            .then(response => {
-                if (response.data.success) {
-                    setResult(response.data.AllShippingRequest)
-                    //console.log(response.data.AllShippingRequest)
-                    setLenght(response.data.postLength)
+        getRequest(variables)
 
-                    if (Request === "search") {
-                        const shipmentArray = []
-                       
-                        shipmentArray.push(response.data.AllShippingRequest)
 
-                        setShippingArray(shipmentArray)
-                    }
-                }                
-            }) 
-            
-            
     }
 
-       //get the remaining data after the first eight
-       const onLoadMore = () => {
+    //get the remaining data after the first eight
+    const onLoadMore = () => {
         let limit = Limit + Limit;
         setLimit(limit)
         const variables = {
@@ -116,34 +123,21 @@ function FreightList(props) {
             limit: limit,
             searchvalue: SearchValue,
         }
-        
-        Axios.post(`/api/shipping/getShippingRequest?type=${Request} `, variables)
-        .then(response => {
-            if (response.data.success) {
-                setResult(response.data.AllShippingRequest)
-                //console.log(response.data.AllShippingRequest)
-                setLenght(response.data.postLength)
 
-                if (Request === "search") {
-                    const shipmentArray = []
-                   
-                    shipmentArray.push(response.data.AllShippingRequest)
+        getRequest(variables)
 
-                    setShippingArray(shipmentArray)
-                }
-            }                
-        })        
+ 
     }
 
     return (
 
         <div style={{ paddingTop: '80px' }} >
 
-       
+
             <form>
                 <Row gutter={[16, 16]}>
                     <Col lg={6} md={6} xs={24} >
-                        <Select name="cargoType" placeholder="select shipping request to show"  id="requestSearch" onChange={handleRequestList} >
+                        <Select name="cargoType" placeholder="select shipping request to show" id="requestSearch" onChange={handleRequestList} >
                             {RequestType}
                         </Select >
                     </Col>
@@ -164,25 +158,25 @@ function FreightList(props) {
                     </Col>
                 </Row>
 
-          <Button
-                type="primary"
-                onClick={onSubmit}
-            >
-                Search
+                <Button
+                    type="primary"
+                    onClick={onSubmit}
+                >
+                    Search
                 </Button>
- 
+
                 <RequestFilter
                     requestType={Request}
-                    searchvalue ={SearchValue}
+                    searchvalue={SearchValue}
                     Result={Result}
-                    Lenght ={Lenght}
+                    Lenght={Lenght}
                     ShipmentArray={ShipmentArray}
-                    Limit ={Limit}
+                    Limit={Limit}
                     onLoadMore={onLoadMore}
                 />
 
 
-            
+
             </form>
         </div>
     )

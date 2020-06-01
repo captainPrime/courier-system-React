@@ -5,6 +5,11 @@ const shippingRequestSchema = mongoose.Schema({
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
+
+    userEmail: {
+        type: String
+    },
+
     uid: {
         type: String
     },
@@ -87,7 +92,7 @@ const shippingRequestSchema = mongoose.Schema({
 
     status: {
         type: String,
-        default: 'Warehouse'
+        default: 'pending'
     },
 
     origination: {

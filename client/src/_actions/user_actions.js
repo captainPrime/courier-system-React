@@ -5,7 +5,8 @@ import {
     AUTH_USER,
     LOGOUT_USER,
     SHIPPING_REQUEST,
-    AUTH_ADMIN
+    AUTH_ADMIN,
+    ADMIN_USER
 } from './types';
 import { USER_SERVER } from '../components/Config.js';
 
@@ -25,6 +26,16 @@ export function loginUser(dataToSubmit) {
 
     return {
         type: LOGIN_USER,
+        payload: request
+    }
+}
+
+export function AdminUser(dataToSubmit) {
+    const request = axios.post(`${USER_SERVER}/Admin`, dataToSubmit)
+        .then(response => response.data);
+
+    return {
+        type: ADMIN_USER,
         payload: request
     }
 }

@@ -7,6 +7,7 @@ import LandingPage from "./views/LandingPage/LandingPage.js";
 import ShippingRequest from "./views/ShippingRequest/ShippingReqauest.js";
 import LoginPage from "./views/LoginPage/LoginPage.js";
 import SingleShipments from "./views/SingleShipments/SingleShipments.js";
+import AdminSingleShipments from "./Admin/SingleShipment";
 import AdminLogin from "./views/AdminLogin/AdminLogin";
 import RegisterPage from "./views/RegisterPage/RegisterPage.js";
 import InlandRequest from "./views/InlandRequest/InlandRequest";
@@ -14,6 +15,7 @@ import Account from "./views/Account/Account";
 import FreightList from "./views/freightList/FreightList";
 import NavBar from "./views/NavBar/NavBar";
 import NavBar2 from "./views/NavBar/NavBar2";
+import AdminDashboard from "./Admin/AdminDashboard";
 import Footer from "./views/Footer/Footer"
 
 //null   Anyone Can go inside
@@ -36,6 +38,8 @@ function App() {
           <Route exact path="/admin-login" component={Auth(AdminLogin, null)} />
           <Route exact path="/account" component={Auth(Account, true)} />
           <Route exact path="/shipment/:shipmentID/:shipmentType/" component={Auth(SingleShipments, true)} />
+          <Route exact path="/admin/:shipmentID/:shipmentType/" component={adminAuth(AdminSingleShipments, true)} />
+          <Route exact path="/admin/dashboard/" component={adminAuth(AdminDashboard, true)} />
         </Switch>
       </div>
       <Footer />

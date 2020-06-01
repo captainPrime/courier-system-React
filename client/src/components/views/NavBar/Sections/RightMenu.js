@@ -19,7 +19,7 @@ function RightMenu(props) {
     });
   };
 
-  if (user.userData && !user.userData.isAuth) {
+  if (user.userData && !user.userData.isAuth && !user.isAdmin) {
     return (
       <Menu mode={props.mode}>
         <Menu.Item key="mail">
@@ -30,7 +30,23 @@ function RightMenu(props) {
         </Menu.Item> */}
       </Menu>
     )
-  } else {
+  }
+
+  else if (user.userData && !user.userData.isAuth && user.isAdmin || !user.userData) {
+    return (
+      <Menu mode={props.mode}>
+        <Menu.Item key="Admin">
+          <a href="/admin/dashboard/">Dashbaord</a>
+        </Menu.Item>
+
+          <Menu.Item key="logout">
+          <a onClick={logoutHandler}>Logout</a>
+        </Menu.Item>
+      </Menu>
+    )
+  }
+
+  else {
     return (
       <Menu mode={props.mode}>
         <Menu.Item key="mail">
@@ -52,7 +68,7 @@ function RightMenu(props) {
         <Menu.Item key="shipping">
           <a href="/shipping-request">Shipping-Request</a>
         </Menu.Item>
-        
+
         <Menu.Item key="inland">
           <a href="/inland-request">Inland-Request</a>
         </Menu.Item>
@@ -66,6 +82,7 @@ function RightMenu(props) {
       </Menu>
     )
   }
+
 }
 
 export default withRouter(RightMenu);

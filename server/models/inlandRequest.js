@@ -6,10 +6,14 @@ const inlandRequestSchema = mongoose.Schema({
         ref: 'User'
     },
 
+    userEmail: {
+        type: String
+    },
+
     uid: {
         type: String
     },
-  
+
     datevalue: {
         type: String
     },
@@ -35,16 +39,16 @@ const inlandRequestSchema = mongoose.Schema({
     destination: {
         type: String
     },
-    
+
     status: {
         type: String,
-        default: 'Warehouse'
+        default: 'pending'
     },
 
     typeOFRequest: {
         type: String
     },
-    
+
     trackingID: {
         type: String
     }

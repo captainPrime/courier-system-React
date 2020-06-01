@@ -1,23 +1,68 @@
 import React, { useEffect, useState } from 'react'
 import Axios from 'axios'
-import { Row, Col, Descriptions } from 'antd'
+import { Row, Col, Descriptions, Input, Select, Button, message } from 'antd'
 
 
-function SingleShipments(props) {
+function AdminSingleShipments(props) {
 
     const shipmentID = props.match.params.shipmentID
     const requestType = props.match.params.shipmentType
     const [InlandShipment, setInlandShipment] = useState([])
     const [Shipment, setShipment] = useState([])
-
+    const [Status, setStatus] = useState()
+    const [TrackingId, setTrackingId] = useState()
+    const [ID, setID] = useState(Shipment.trackingID)
+  
+    const status = [
+        "pending",
+        "warehouse",
+        "in transit",
+        "completed"
+    ]
 
     useEffect(() => {
         Axios.get(`/api/shipping/shipment_by_id?id=${shipmentID}&type=${requestType}`)
             .then(response => {
                 setShipment(response.data[0])
                 //console.log(response.data[0])
+
+          
             })
     })
+
+    const ShipmentStatus = status.map((item, index) => {
+        return <Select.Option key={index} value={item}>{item}</Select.Option>
+    })
+
+    const handleSelect = (value) => {
+        setStatus(value)
+    }
+
+    const handleInput = (event) => {
+        setTrackingId(event.target.value)
+    }
+
+    const handleSubmit = () => {
+
+        const variables = {
+            status: Status,
+            trackingid: TrackingId
+        }
+
+        Axios.post(`/api/shipping/updateRequest?id=${shipmentID}&type=${requestType}`, variables)
+            .then(response => {
+                if (response.data.success) {
+                    message.success("Request Successfully Updated")
+                    //props.history.push('/');
+                }
+
+                else {
+                    message.error("Failed to Update Request")
+                }
+            })
+
+    }
+
 
     return (
         <div className="postPage" style={{ width: '100%' }}>
@@ -29,6 +74,7 @@ function SingleShipments(props) {
                             <div style={{ border: 'solid 1px lightgrey', padding: '10px' }}>
                                 <Descriptions title='Request Information'>
                                     <Descriptions.Item label='Status' id="status"><span style={{ fontWeight: 'bold' }}>{Shipment.status}</span></Descriptions.Item>
+                                    <Descriptions.Item label='Client Email' id="email"><a href={`mailto: ${Shipment.userEmail}`} style={{}}>{Shipment.userEmail}</a></Descriptions.Item>
                                     <Descriptions.Item label='Date of Shipment'><span style={{ fontWeight: 'bold' }}>{Shipment.datevalue}</span></Descriptions.Item>
                                     <Descriptions.Item label='Dimension'><span style={{ fontWeight: 'bold' }}>{Shipment.dimension}</span></Descriptions.Item>
                                     <Descriptions.Item label='Commodity'><span style={{ fontWeight: 'bold' }}>{Shipment.cargo}</span></Descriptions.Item>
@@ -68,6 +114,7 @@ function SingleShipments(props) {
                             <div style={{ border: 'solid 1px lightgrey', padding: '10px' }}>
                                 <Descriptions title='Request Information'>
                                     <Descriptions.Item label='Status'><span style={{ fontWeight: 'bold' }}>{Shipment.status}</span></Descriptions.Item>
+                                    <Descriptions.Item label='Client Email' id="email"><a href={`mailto: ${Shipment.userEmail}`} style={{}}>{Shipment.userEmail}</a></Descriptions.Item>
                                     <Descriptions.Item label='Pick Up Time'><span style={{ fontWeight: 'bold' }}>{Shipment.datevalue}</span></Descriptions.Item>
                                     <Descriptions.Item label='Period'><span style={{ fontWeight: 'bold' }}>{Shipment.period}</span></Descriptions.Item>
                                     <Descriptions.Item label='Origin'><span style={{ fontWeight: 'bold' }}>{Shipment.origination}</span></Descriptions.Item>
@@ -99,7 +146,7 @@ function SingleShipments(props) {
                                 {Shipment.cargo === "dry cargo" &&
                                     <div>
                                         <Descriptions>
-                                            < Descriptions.Item label='Cargo Type'><span style={{ fontWeight: 'bold' }}>{Shipment.cargo}</span></Descriptions.Item>
+                                            <Descriptions.Item label='Cargo Type'><span style={{ fontWeight: 'bold' }}>{Shipment.cargo}</span></Descriptions.Item>
                                             <Descriptions.Item label='PO'><span style={{ fontWeight: 'bold' }}>{Shipment.cargodescription[0].identifier}</span></Descriptions.Item>
                                             <Descriptions.Item label='Specific Destination'><span style={{ fontWeight: 'bold' }}>{Shipment.cargodescription[0].destination2}</span></Descriptions.Item>
                                             <Descriptions.Item label='#Buyer'><span style={{ fontWeight: 'bold' }}>{Shipment.cargodescription[0].buyer}</span></Descriptions.Item>
@@ -115,17 +162,28 @@ function SingleShipments(props) {
                             </div>
                         </div>
                     </form>
-
-
-
                 </div>
-
-
-
             }
+
+            <br />
+            <h3>Update Request</h3>
+            {}
+            <form>
+                <Row gutter={[16, 16]} >
+                    <Col lg={12} sm={12}>
+                        <Input placeholder="Input Tracking Id"  onChange={handleInput} />
+                    </Col>
+                    <Col lg={12} sm={12}>
+                        <Select defaultValue="pending" onChange={handleSelect}>
+                            {ShipmentStatus}
+                        </Select>
+                    </Col>
+                </Row>
+                <Button type="primary" onClick={handleSubmit}>Update Request</Button>
+            </form>
         </div>
 
     )
 }
 
-export default SingleShipments
+export default AdminSingleShipments

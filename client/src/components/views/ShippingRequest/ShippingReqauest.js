@@ -173,12 +173,12 @@ function ShippingRequest(props) {
 
     const handleSubmit = (event) => {
 
-        if (!Dimension || !Commodity || !Description || !Weight || !Quantity || !FromCountry || !ToCountry || !ToState || !FromState || !FromPort || !ToPort || !ToCity || !DateValue || !HWD1 || !HWD2 || !HWD3) {
+        /* if (!Dimension || !Commodity || !Description || !Weight || !Quantity || !FromCountry || !ToCountry || !ToState || !FromState || !FromPort || !ToPort || !ToCity || !DateValue || !HWD1 || !HWD2 || !HWD3) {
             event.preventDefault()
             message.error("please fill required fields")
         }
 
-        else {
+        else { */
 
             let variables = {
                 // props.user.userData._id is gotten redux AUTH function (user_reducer)
@@ -239,7 +239,7 @@ function ShippingRequest(props) {
                           console.log('error')
                       } 
                   })  */
-        }
+     /*    } */
 
     }
 

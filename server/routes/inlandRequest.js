@@ -12,6 +12,7 @@ router.post("/InlandRequest", auth, (req, res, next) => {
     if (req.body.cargo === 'vehicle') {
         const inlandrequest = new InlandRequest({
             writer: req.body.writer,
+            userEmail: req.user.email,
             uid: req.body.uid,
             datevalue: req.body.datevalue,
             cargo: req.body.cargo,

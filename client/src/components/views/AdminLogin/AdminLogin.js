@@ -1,15 +1,17 @@
 import React, { useState } from "react";
 import { withRouter } from "react-router-dom";
-import { loginUser } from "../../../_actions/user_actions";
+import { AdminUser } from "../../../_actions/user_actions";
 import { Formik } from 'formik';
 import * as Yup from 'yup';
 import { Form, Icon, Input, Button, Checkbox, Typography } from 'antd';
+import { useDispatch } from "react-redux";
 
 import Axios from 'axios'
 
 const { Title } = Typography;
 
 function AdminLogin(props) {
+    const dispatch = useDispatch();
 
     const rememberMeChecked = localStorage.getItem("rememberMe") ? true : false;
 
@@ -43,18 +45,35 @@ function AdminLogin(props) {
                         password: values.password
                     };
 
-                    Axios.post('/api/users/Admin', dataToSubmit).
-                        then(response => {
-                            if (response.data.loginSuccess) {
-
-                                props.history.push("/");
-                            }
-
-                            else {
-                                alert('fail')
+                    dispatch(AdminUser(dataToSubmit))
+                        .then(response => {
+                            if (response.payload.loginSuccess) {
+                                props.history.push("/admin/dashboard/");
+                            } else {
+                                setFormErrorMessage('Check out your Account or Password again')
                             }
                         })
+                        .catch(err => {
+                            setFormErrorMessage('Check out your Account or Password again')
+                            setTimeout(() => {
+                                setFormErrorMessage("")
+                            }, 3000);
+                        });
 
+                    //==================================USING AXIOS FETCH=============================
+                    /* 
+                                        Axios.post('/api/users/Admin', dataToSubmit).
+                                            then(response => {
+                                                if (response.data.loginSuccess) {
+                    
+                                                    props.history.push("/");
+                                                }
+                    
+                                                else {
+                                                    alert('fail')
+                                                }
+                                            }) */
+                    //==========================================================================================
                     setSubmitting(false);
                 }, 500);
             }}

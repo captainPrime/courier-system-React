@@ -4,7 +4,8 @@ import {
     AUTH_USER,
     LOGOUT_USER,
     SHIPPING_REQUEST,
-    AUTH_ADMIN
+    AUTH_ADMIN,
+    ADMIN_USER
 } from '../_actions/types';
 
 
@@ -14,6 +15,8 @@ export default function (state = {}, action) {
             return { ...state, register: action.payload }
         case LOGIN_USER:
             return { ...state, loginSucces: action.payload }
+        case ADMIN_USER:
+            return { ...state, loginSucces: action.payload, isAdmin: true }
         case AUTH_USER:
             return { ...state, userData: action.payload }
         case AUTH_ADMIN:
