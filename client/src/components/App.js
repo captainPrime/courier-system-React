@@ -13,10 +13,13 @@ import RegisterPage from "./views/RegisterPage/RegisterPage.js";
 import InlandRequest from "./views/InlandRequest/InlandRequest";
 import Account from "./views/Account/Account";
 import FreightList from "./views/freightList/FreightList";
+import Consignee from "./views/Consignee/Consignee";
+import Vendor from "./views/Vendor/Vendor";
+import Inventory from "./views/Inventory/Inventory";
 import NavBar from "./views/NavBar/NavBar";
-import NavBar2 from "./views/NavBar/NavBar2";
 import AdminDashboard from "./Admin/AdminDashboard";
 import Footer from "./views/Footer/Footer"
+
 
 //null   Anyone Can go inside
 //true   only logged in user can go inside
@@ -40,6 +43,9 @@ function App() {
           <Route exact path="/shipment/:shipmentID/:shipmentType/" component={Auth(SingleShipments, true)} />
           <Route exact path="/admin/:shipmentID/:shipmentType/" component={adminAuth(AdminSingleShipments, true)} />
           <Route exact path="/admin/dashboard/" component={adminAuth(AdminDashboard, true)} />
+          <Route exact path="/consignee" component={Auth(Consignee, true)} />
+          <Route exact path="/vendor" component={Auth(Vendor, true)} />
+          <Route exact path="/inventory" component={Auth(Inventory, true)} />
         </Switch>
       </div>
       <Footer />

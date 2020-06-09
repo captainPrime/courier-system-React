@@ -79,7 +79,7 @@ function LoginPage(props) {
           handleReset,
         } = props;
         return (
-          <div className="app" style={{  }}>
+          <div className="app" style={{}}>
 
             <div className="container" style={{}}>
               <h2>Sign In</h2>
@@ -104,7 +104,7 @@ function LoginPage(props) {
                 </Form.Item>
 
                 <Form.Item required>
-                  <Input
+                  <Input.Password
                     id="password"
                     prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
                     placeholder="Enter your password"
@@ -139,7 +139,7 @@ function LoginPage(props) {
                 </Form.Item>
               </form>
             </div>
-            <br/>
+            <br />
             <div>copyright @ 2020 CMS by taiwo</div>
           </div>
         );

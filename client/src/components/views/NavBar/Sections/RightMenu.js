@@ -39,7 +39,7 @@ function RightMenu(props) {
           <a href="/admin/dashboard/">Dashbaord</a>
         </Menu.Item>
 
-          <Menu.Item key="logout">
+        <Menu.Item key="logout">
           <a onClick={logoutHandler}>Logout</a>
         </Menu.Item>
       </Menu>
@@ -53,18 +53,20 @@ function RightMenu(props) {
           <a href="/">Home</a>
         </Menu.Item>
 
-        <Menu.Item key="consignee">
-          <a href="#">Consignee</a>
-        </Menu.Item>
 
-        <Menu.Item key="vendor">
-          <a href="#">Vendor</a>
-        </Menu.Item>
-
-        <Menu.Item key="freight">
+            <Menu.Item key="freight">
           <a href="/freight-list">Freights</a>
         </Menu.Item>
 
+
+        <Menu.Item key="consignee">
+          <a href="/consignee">Consignee</a>
+        </Menu.Item>
+
+        <Menu.Item key="vendor">
+          <a href="/vendor">Vendor</a>
+        </Menu.Item>
+   
         <Menu.Item key="shipping">
           <a href="/shipping-request">Shipping-Request</a>
         </Menu.Item>
@@ -76,6 +78,11 @@ function RightMenu(props) {
         <Menu.Item key="account">
           <a href="/account">Account</a>
         </Menu.Item>
+
+            <Menu.Item key="inventory">
+          <a href="/inventory">Inventory</a>
+        </Menu.Item>
+
         <Menu.Item key="logout">
           <a onClick={logoutHandler}>Logout</a>
         </Menu.Item>

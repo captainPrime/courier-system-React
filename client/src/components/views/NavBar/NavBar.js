@@ -32,10 +32,10 @@ function NavBar() {
           type="primary"
           onClick={showDrawer}
         >
-          <Icon type="align-right" />
+          <Icon type="menu" />
         </Button>
         <Drawer
-          title="Basic Drawer"
+          title="LOGO"
           placement="right"
           className="menu_drawer"
           closable={false}

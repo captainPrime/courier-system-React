@@ -10,7 +10,7 @@ function AdminDashboard() {
     const [Result2, setResult2] = useState()
 
     const [Skip, setSkip] = useState(0)
-    const [Limit, setLimit] = useState(2)
+    const [Limit, setLimit] = useState(10)
 
     function getAdminShippingRequest(params) {
         Axios.post(`/api/shipping/getAdminShippingRequest?type=${Request} `, params)

@@ -10,10 +10,6 @@ const { auth } = require("../middleware/auth");
 
 router.post("/shippingRequest", auth, (req, res, next) => {
 
-    //console.log(req.body)
-
-    /*  const shippingrequest = new ShippingRequest(req.body); */
-
     const shippingrequest = new ShippingRequest({
         writer: req.body.writer,
         userEmail: req.user.email,
@@ -50,6 +46,8 @@ router.post("/shippingRequest", auth, (req, res, next) => {
             req.body.fromstate + "," + " " +
             req.body.fromport + "," + " " +
             req.body.fromzip,
+        vendor: req.body.Vendor,
+        consignee: req.body.Consignee,
     })
 
     shippingrequest.save((err, doc) => {
@@ -135,6 +133,55 @@ router.post("/getShippingRequest", auth, (req, res) => {
                 })
             })
     }
+
+    else if (type === 'location') {
+
+        const result = []
+
+        InlandRequest.find(
+            { "status": req.body.location, writer: req.user._id },
+            (err, shipments) => {
+
+                /* for (i = 0; i < shipment.length; i++) {
+                    result.push(shipment[i]) */
+
+                ShippingRequest.find({ "status": req.body.location, writer: req.user._id })
+                    .populate('writer')
+                    .sort([[sortBy, order]])
+                    .skip(skip)
+                    .limit(limit)
+                    .exec((err, shipment) => {
+                        /* for (i = 0; i < shipment.length; i++) {
+                            shipments.push(shipment[i])
+
+                            console.log((shipment[i])) */
+
+                        shipment.forEach((item, index) => {
+
+                            console.log(item)
+                            shipments.push(item)
+                        })
+
+                        if (err) return res.status(400).json({
+
+                            success: false,
+                            message: 'failed to fetch request'
+                        })
+
+                        return res.status(200).json({
+                            success: true,
+                            AllShippingRequest: shipments,
+                            postLength: shipments.length
+                        })
+
+                    })
+            }
+            /* } */
+        )
+
+    }
+
+
 });
 
 router.post("/getAdminInlandRequest", (req, res) => {
@@ -227,9 +274,9 @@ router.post("/updateRequest", (req, res) => {
                     status: req.body.status
                 }
             },
-            {new: true},
+            { new: true },
             (err) => {
-                if(err) res.status(400).send(err)
+                if (err) res.status(400).send(err)
                 res.status(200).json({
                     success: true,
                 })
@@ -246,9 +293,9 @@ router.post("/updateRequest", (req, res) => {
                     status: req.body.status
                 }
             },
-            {new: true},
+            { new: true },
             (err) => {
-                if(err) res.status(400).send(err)
+                if (err) res.status(400).send(err)
                 res.status(200).json({
                     success: true,
                 })

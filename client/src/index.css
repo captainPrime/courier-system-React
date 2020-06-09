@@ -34,20 +34,24 @@ table{
   font-display: arial, san-serif;
   border-collapse: collapse;
   width: 100%;
-  font-weight: bold
+  font-weight: bold;
+
 }
 
 td, th{
-  border: 1px solid #dddddd;
+  border: 1px solid #c9c9c9;
   text-align: left;
   padding: 8px;
   border-collapse: collapse;
- 
+  background: rgb(159, 253, 159);
 }
 
+th{
+  background: #f8f6f6 !important;
+}
 tr:nth-child(even){
   background-color: #dddddd;
-  font-weight: bold
+  font-weight: bold;
 }
 
 
@@ -68,13 +72,13 @@ tr:nth-child(even){
   width: 350px  
 }
 
-/* .List-Area{
-  background-color: rgb(247, 247, 247);
-  border-radius: 3px;
-  padding: 10px;
-  padding-bottom: 50vh;
-  
-} */
+.star{
+  color: red;
+}
+
+.field{
+  width: 100%;
+}
 
 @media (max-width: 575.98px) { 
   .container2{
