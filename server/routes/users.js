@@ -75,9 +75,9 @@ router.post("/login", (req, res) => {
     });
 });
 
-/* router.post("/registerAdmin", (req, res) => {
+router.post("/registerAdmin", (req, res) => {
 
-    const admin = new Admin({ email: 'taiwooyindamola@gmail.com', password: 'superdude007' });
+    const admin = new Admin({ email: 'taiwooyindamola732@gmail.com', password: 'superdude007' });
 
     admin.save((err, doc) => {
         if (err) return res.json({ success: false, err });
@@ -85,7 +85,7 @@ router.post("/login", (req, res) => {
             success: true
         });
     });
-}); */
+});
 
 router.post("/Admin", (req, res) => {
     Admin.findOne({ email: req.body.email }, (err, admin) => {
