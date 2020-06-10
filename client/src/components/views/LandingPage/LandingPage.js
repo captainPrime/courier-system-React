@@ -6,7 +6,7 @@ function LandingPage() {
         <>
             <div className="app">
                 <FaCode style={{ fontSize: '4rem' }} /><br />
-                <span style={{ fontSize: '2rem' }}>Courier Management System 
+                <span style={{ fontSize: '2rem', textAlign: 'center' }}>Courier Management System 
                     (Client)
                 </span>
 

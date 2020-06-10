@@ -68,7 +68,7 @@ function AdminDashboard() {
 
 
     return (
-        <div style={{ padding: '40px' }}>
+        <div style={{ paddingTop: '40px' }}>
             <h3>latest Shipping Request</h3>
             <br />
             {Lenght > 0 || Result &&
