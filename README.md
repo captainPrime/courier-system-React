@@ -12,4 +12,4 @@ To use this application,
  --To run program typr " npm run dev "
  --If you have problem, feel free to ask me ^^
 
-WHY REDUX IS NICE IS THAT ANY ITEM STORED CAN BE USED ANYWHERE IN THE PROGRAM
+#WHY REDUX IS NICE IS THAT ANY ITEM STORED CAN BE USED ANYWHERE IN THE PROGRAM
