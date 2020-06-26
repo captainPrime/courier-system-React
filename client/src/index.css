@@ -34,22 +34,45 @@ table{
   font-display: arial, san-serif;
   border-collapse: collapse;
   width: 100%;
-  font-weight: bold
+  font-weight: bold;
+
 }
 
 td, th{
-  border: 1px solid #dddddd;
+  border: 1px solid #c9c9c9;
   text-align: left;
   padding: 8px;
   border-collapse: collapse;
- 
+  background: rgb(159, 253, 159);
 }
 
+th{
+  background: #f8f6f6 !important;
+}
 tr:nth-child(even){
   background-color: #dddddd;
-  font-weight: bold
+  font-weight: bold;
 }
 
+.content{
+ /* paddingTop: '69px' ,*/ 
+ padding: '40px'; 
+ min-height: 'calc(100vh - 80px)'; 
+ width: "80%";
+  float: "right"
+}
+
+.logout{
+  color: rgb(160, 159, 159)
+}
+
+.logout:hover{
+  color: blue;
+}
+
+.Aside{
+  width: "20%"; float: 'left'; padding-top: '99px'; position: 'fixed'; height: "100%"
+}
 
 .input-feedback {
   color: red;
@@ -68,16 +91,27 @@ tr:nth-child(even){
   width: 350px  
 }
 
-/* .List-Area{
-  background-color: rgb(247, 247, 247);
-  border-radius: 3px;
-  padding: 10px;
-  padding-bottom: 50vh;
-  
-} */
+.star{
+  color: rgba(142, 228, 175, 0.315);
+}
 
-@media (max-width: 575.98px) { 
+.field{
+  width: 100%;
+}
+
+
+@media (max-width: 767.98px) { 
   .container2{
     width: 250px;
   }
+
+  .content{
+    width: 100% !important;
+    padding: 40px;
+  }
+
+  .Aside{
+    display: none;
+  }
+
 }

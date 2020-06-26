@@ -1,68 +1,77 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema
-const inlandRequestSchema = mongoose.Schema({
+const vendorSchema = mongoose.Schema({
     writer: {
         type: Schema.Types.ObjectId,
         ref: 'User'
     },
 
-    userEmail: {
+    UI: {
         type: String
     },
 
-    uid: {
+    Account: {
         type: String
     },
 
-    datevalue: {
-        type: String
-    },
-    cargo: {
+    Company: {
         type: String
     },
 
-    cargodescription: {
-        type: Array
-    },
-    origination: {
+    FirstName: {
         type: String
     },
-    destination: {
-        type: String
-    },
-    period: {
-        type: String
-    },
-    description: {
-        type: String
-    },
-    destination: {
+    LastName: {
         type: String
     },
 
-    status: {
+
+    SalesRep: {
+        type: String
+    },
+    Country: {
+        type: String
+    },
+    Address1: {
+        type: String
+    },
+    Address2: {
+        type: String
+    },
+    City: {
+        type: String
+    },
+
+
+    ZIP: {
+        type: String
+    },
+
+    IDNumber: {
+        type: String
+    },
+    IDType: {
+        type: String
+    },
+    Phone1: {
+        type: String
+    },
+    Phone2: {
+        type: String
+    },
+    Email: {
+        type: String
+    },
+    Others: {
+        type: String
+    },
+
+    typeOfRequest: {
         type: String,
-        default: 'pending'
-    },
-
-    typeOFRequest: {
-        type: String
-    },
-
-    trackingID: {
-        type: String
-    },
-
-    vendor: {
-        type: String
-    },
-
-
-    consignee: {
-        type: String
-    },
+        default: "Vendor"
+    }
     //know when shipping request was made 
 }, { timestamps: true })
 
-const InlandRequest = mongoose.model('InlandRequest', inlandRequestSchema);
-module.exports = { InlandRequest }
+const Vendor = mongoose.model('Vendor', vendorSchema);
+module.exports = { Vendor }

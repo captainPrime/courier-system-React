@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import Axios from 'axios'
 import { message, table, Empty, Button } from 'antd'
 
@@ -26,7 +26,7 @@ function RequestFilter(props) {
 
                             {props.requestType === "search" ?
                                 <tbody>
-                                    {props.ShipmentArray[0] !== null && props.ShipmentArray.map((item, index) => (
+                                    {props.ShipmentArray !== null && props.ShipmentArray.map((item, index) => (
                                         <tr key={index}>
                                             <td><a href={`/shipment/${item._id}/${item.typeOFRequest}`}>{item.uid}</a></td>
                                             <td>{item.cargo}</td>

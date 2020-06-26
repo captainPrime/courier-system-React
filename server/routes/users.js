@@ -1,15 +1,13 @@
 const express = require('express');
 const router = express.Router();
 const { User } = require("../models/User");
+const { Consignee } = require("../models/Consignee");
+const { Vendor } = require("../models/Vendor");
 const { Admin } = require("../models/Admin");
-
 const { auth } = require("../middleware/auth");
 const { adminAuth } = require("../middleware/admin");
-
-
 const bcrypt = require('bcrypt');
 const saltRounds = 10;
-
 
 //=================================
 //             User
@@ -77,9 +75,9 @@ router.post("/login", (req, res) => {
     });
 });
 
-/* router.post("/registerAdmin", (req, res) => {
+router.post("/registerAdmin", (req, res) => {
 
-    const admin = new Admin({ email: 'taiwooyindamola@gmail.com', password: 'superdude007' });
+    const admin = new Admin({ email: 'taiwooyindamola732@gmail.com', password: 'superdude007' });
 
     admin.save((err, doc) => {
         if (err) return res.json({ success: false, err });
@@ -87,7 +85,7 @@ router.post("/login", (req, res) => {
             success: true
         });
     });
-}); */
+});
 
 router.post("/Admin", (req, res) => {
     Admin.findOne({ email: req.body.email }, (err, admin) => {
@@ -141,13 +139,6 @@ router.get("/getUser", auth, (req, res) => {
 
 router.post("/updateProfile", auth, (req, res) => {
 
-    bcrypt.genSalt(saltRounds, function (err, salt) {
-        if (err) return (err);
-
-        bcrypt.hash(req.body.password, salt, function (err, hash) {
-            if (err) return (err);
-            req.body.password = hash
-
             User.findOneAndUpdate(
                 { _id: req.user._id },
                 {
@@ -165,7 +156,6 @@ router.post("/updateProfile", auth, (req, res) => {
                         phone2: req.body.phone2,
                         username: req.body.username,
                         email: req.body.email,
-                        password: hash
                     }
                 },
 
@@ -174,24 +164,176 @@ router.post("/updateProfile", auth, (req, res) => {
                     if (err) {
                         return res.json({ success: false, err })
                     }
-
-
                     res.status(200).json({ success: true })
-
                 }
             )
-
-
-        })
-    })
-
-
-
-
-    // console.log('password changed')
-
-
+    
 
 });
+
+
+//==========================================================CONSIGNEE========================================================================
+router.post('/addConsignee', auth, (req, res) => {
+    const consignee = new Consignee(req.body)
+
+
+    consignee.save((err, doc) => {
+
+        if (err) return res.json({ success: false, err });
+        return res.status(200).json({
+            success: true
+        });
+    })
+})
+
+//get consignee for shipping request population
+
+router.get('/consignees', auth, (req, res) => {
+
+    Consignee.find({ writer: req.user._id },
+        (err, consignees) => {
+
+            if (err) return res.status(400).json({
+                success: false
+            })
+
+            return res.status(200).json({
+                success: true,
+                consignees
+            })
+        })
+})
+
+//get searched consignee
+router.post('/getConsignee', auth, (req, res) => {
+
+    findArg = req.body.Filter
+    if (req.body.Request) {
+
+        Consignee.find(findArg)
+            .exec((err, searchedConsignee) => {
+                if (err) return res.json({ success: false, err });
+                return res.status(200).json({
+                    success: true,
+                    searchedConsignee
+                });
+            })
+    }
+
+    else if (req.body.Request === undefined || req.body.Filter.UI === "" || req.body.Filter.FirstName === "" || req.body.Filter.Company === "" || req.body.Filter.LastName === "") {
+        Consignee.find({ writer: req.user._id })
+            .exec((err, searchedConsignee) => {
+
+                if (err) return res.json({ success: false, err });
+                return res.status(200).json({
+                    success: true,
+                    searchedConsignee
+                });
+            })
+    }
+
+})
+//==========================================================VENDOR========================================================================
+router.post('/addVendor', auth, (req, res) => {
+    const vendor = new Vendor(req.body)
+
+
+    vendor.save((err, doc) => {
+
+        if (err) return res.json({ success: false, err });
+        return res.status(200).json({
+            success: true
+        });
+    })
+})
+
+//get vendors for shipping request population
+
+router.get('/vendors', auth, (req, res) => {
+
+
+
+    Vendor.find({ writer: req.user._id },
+        (err, vendors) => {
+            // console.log(vendors)
+            /*  const vendorCompanyName = []
+             vendors.forEach((item, index) => {
+                 vendorCompanyName.push(item.Company)
+             })
+  */
+            //console.log(vendorCompanyName)
+            if (err) return res.status(400).json({
+                success: false
+            })
+
+            return res.status(200).json({
+                success: true,
+                vendors
+            })
+        })
+})
+
+//get searched vendor
+router.post('/getVendor', auth, (req, res) => {
+
+    findArg = req.body.Filter
+    if (req.body.Request) {
+
+        Vendor.find(findArg)
+            .exec((err, searchedVendor) => {
+                //console.log(searchedVendor)
+                if (err) return res.json({ success: false, err });
+                return res.status(200).json({
+                    success: true,
+                    searchedVendor
+                });
+            })
+    }
+
+    else if (req.body.Request === undefined || req.body.Filter.UI === "" || req.body.Filter.FirstName === "" || req.body.Filter.Company === "" || req.body.Filter.LastName === "") {
+        Vendor.find({ writer: req.user._id })
+            .exec((err, searchedVendor) => {
+
+                if (err) return res.json({ success: false, err });
+                return res.status(200).json({
+                    success: true,
+                    searchedVendor
+                });
+            })
+    }
+})
+
+
+//find VENDOR OR CONSIGNEE
+
+router.get('/user_by_ui', auth, (req, res) => {
+    let type = req.query.type
+
+    if (type === "Vendor") {
+        Vendor.findOne({ writer: req.user._id, _id: req.query.id },
+            (err, result) => {
+                if (err) return res.status(400).json({ success: false })
+                return res.status(200).json({
+                    success: true,
+                    result
+                })
+            }
+        )
+    }
+
+    else{
+        Consignee.findOne({ writer: req.user._id, _id: req.query.id },
+            (err, result) => {
+                if (err) return res.status(400).json({ success: false })
+                return res.status(200).json({
+                    success: true,
+                    result
+                })
+            }
+        )
+    }
+    
+})
+
 
 module.exports = router;

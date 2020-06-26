@@ -95,6 +95,13 @@ const shippingRequestSchema = mongoose.Schema({
         default: 'pending'
     },
 
+    vendor: {
+        type: String
+    },
+  
+    consignee: {
+        type: String
+    },
     origination: {
         type: String
     },

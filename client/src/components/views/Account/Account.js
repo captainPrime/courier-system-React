@@ -14,7 +14,9 @@ function Account(props) {
             .then(response => {
                 setUser(response.data.userInfo)
             })
-    })
+    }, [])
+
+    console.log(Profile)
 
     const [Company, setComapny] = useState()
     const [FirstName, setFirstName] = useState()
@@ -33,7 +35,7 @@ function Account(props) {
             {Profile && Profile.map((user, i) => {
 
                 return (
-                    <div style={{ padding: '10px', }}>
+                    <div style={{ padding: '0px', }}>
                         <h2>Account {user.UI}</h2>
                         <form>
                             <div>

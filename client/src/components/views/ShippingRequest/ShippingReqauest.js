@@ -25,7 +25,7 @@ function ShippingRequest(props) {
     const [Pieces, setpieces] = useState()
     const [Declare, setdeclare] = useState()
 
-    const [FromCountry, setFromCountry] = useState()
+    const [FromCountry, setFromCountry] = useState("United States")
     const [ToCountry, setToCountry] = useState()
     const [ToState, setToState] = useState()
     const [FromState, setFromState] = useState()
@@ -42,6 +42,44 @@ function ShippingRequest(props) {
     const [HWD1, setHWD1] = useState(0)
     const [HWD2, setHWD2] = useState(0)
     const [HWD3, setHWD3] = useState(0)
+
+    //=================VENDORS AND CONSIGNEE API ==================================
+    const [Vendor, setVendor] = useState()
+    const [Consignee, setConsignee] = useState()
+    const [VendorList, setVendorList] = useState([])
+    const [ConsigneeList, setConsigneeList] = useState([])
+    useEffect(() => {
+        Axios.get('/api/users/vendors')
+            .then(response => {
+                if (response.data.success) {
+                    setVendorList(response.data.vendors)
+                }
+            })
+
+        Axios.get('/api/users/consignees')
+            .then(response => {
+                if (response.data.success) {
+                    setConsigneeList(response.data.consignees)
+                }
+            })
+    }, [])
+
+
+    const VendorCompany = VendorList.map((Item, index) => {
+        return <Select.Option key={index} value={Item.UI + " " + Item.Company}> {Item.Company} </Select.Option>
+    })
+    const handleVendors = (value) => {
+        setVendor(value)
+
+    }
+
+    const ConsigneeCompany = ConsigneeList.map((Item, index) => {
+        return <Select.Option key={index} value={Item.UI + " " + Item.Company}> {Item.FirstName + " " + Item.LastName + " " + "passport" + " " + Item.UI} </Select.Option>
+    })
+    const handleConsignees = (value) => {
+        setConsignee(value)
+    }
+
 
     //console.log(props.user.userData.name)
 
@@ -164,116 +202,109 @@ function ShippingRequest(props) {
         else if (name === 'setHWD2') { setHWD2(value) }
         else { setHWD3(value) }
 
-        console.log(HWD1, name, value)
+
     }
 
     const handlePieces = (value) => {
-        console.log(value)
+
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
 
-        /* if (!Dimension || !Commodity || !Description || !Weight || !Quantity || !FromCountry || !ToCountry || !ToState || !FromState || !FromPort || !ToPort || !ToCity || !DateValue || !HWD1 || !HWD2 || !HWD3) {
-            event.preventDefault()
-            message.error("please fill required fields")
+        event.preventDefault()
+        let variables = {
+            // props.user.userData._id is gotten redux AUTH function (user_reducer)
+
+            writer: props.user.userData._id,
+            uid: uuid(),
+            dimension: Dimension,
+            cargo: Commodity,
+            description: Description,
+            weight: Weight,
+            quantity: Quantity,
+            movementtype: MovementType,
+            pieces: Pieces,
+            declare: Declare,
+            fromcountry: FromCountry,
+            tocountry: ToCountry,
+            tostate: ToState,
+            fromstate: FromState,
+            fromport: FromPort,
+            toport: ToPort,
+            tocity: ToCity,
+            tozip: ToZIP,
+            fromzip: FromZIP,
+            fromcity: FromCity,
+            note: Note,
+            mode: Mode,
+            datevalue: DateValue,
+            hwd1: HWD1,
+            hwd2: HWD2,
+            hwd3: HWD3,
+            typeOFRequest: "shipping request",
+            Vendor,
+            Consignee,
         }
+        //==========================USING AXIOS DIRECTLY======================================
+        await Axios.post('/api/shipping/shippingRequest', variables)
+            .then(response => {
+                if (response.data.success) {
+                    message.success('Product successfully uploaded');
+                    //props.history.push("/shipping-request");
+                    window.location.reload(true)
+                }
 
-        else { */
-
-            let variables = {
-                // props.user.userData._id is gotten redux AUTH function (user_reducer)
-
-                writer: props.user.userData._id,
-                uid: uuid(),
-                dimension: Dimension,
-                cargo: Commodity,
-                description: Description,
-                weight: Weight,
-                quantity: Quantity,
-                movementtype: MovementType,
-                pieces: Pieces,
-                declare: Declare,
-                fromcountry: FromCountry,
-                tocountry: ToCountry,
-                tostate: ToState,
-                fromstate: FromState,
-                fromport: FromPort,
-                toport: ToPort,
-                tocity: ToCity,
-                tozip: ToZIP,
-                fromzip: FromZIP,
-                fromcity: FromCity,
-                note: Note,
-                mode: Mode,
-                datevalue: DateValue,
-                hwd1: HWD1,
-                hwd2: HWD2,
-                hwd3: HWD3,
-                typeOFRequest: "shipping request"
-            }
-            //==========================USING AXIOS DIRECTLY======================================
-            Axios.post('/api/shipping/shippingRequest', variables)
-                .then(response => {
-                    if (response.data.success) {
-                        alert("Request successfully recorded")
-                        message.success('Product successfully uploaded');
-                        props.history.push("/freight-list");
-                    }
-
-                    else {
-                        message.error('Failed to record request')
-                    }
-                })
-            //==========================USING REDUX===============================================
-            /*  dispatch(shippingRequest(variables))
-                  .then(response => {
-                      console.log(response.data)
-                    if (response.payload.success) {
-                          message.success('Your request has been successfully recorded')
-                          console.log(response.payload.shippingRequest)
-                          
-                      }
-      
-                      else {
-                          message.error('Failed to record request')
-                          console.log('error')
-                      } 
-                  })  */
-     /*    } */
+                else {
+                    message.error('Failed to record request')
+                }
+            })
+        //==========================USING REDUX===============================================
+        /*  dispatch(shippingRequest(variables))
+              .then(response => {
+                  console.log(response.data)
+                if (response.payload.success) {
+                      message.success('Your request has been successfully recorded')
+                      console.log(response.payload.shippingRequest)
+                      
+                  }
+  
+                  else {
+                      message.error('Failed to record request')
+                      console.log('error')
+                  } 
+              })  */
+        /*    } */
 
     }
-
-
-
     //----------------------------------------------------------------------------------
 
     return (
         <div style={{ paddingTop: '69px', width: '100%', }}>
             <Title level={3} >Cargo Details</Title>
-            <form >
+            <form onSubmit={handleSubmit}>
                 <Row gutter={[16, 16]}>
                     <Col lg={6} md={6} xs={24} >
-                        <Form.Item label="Date of Shipment" className="label" >
+                        <Form.Item label="Date of Shipment *" className="label" >
                             <DatePicker onChange={handleDate} style={{ width: '100%' }} required />
                         </Form.Item>
                     </Col>
                     <Col lg={6} md={6} xs={24} >
-                        <Form.Item label="Dimension" className="label">
+                        <Form.Item label="Dimension *" className="label">
                             <Select name="dimension" defaultValue="inches" onChange={handleDimension} required>
                                 {SizeCal}
                             </Select >
                         </Form.Item >
                     </Col>
                     <Col lg={6} md={6} xs={24} >
-                        <Form.Item label="movement type" className="label">
+                        <Form.Item label="movement type *" className="label">
                             <Select name="movement" placeholder='please select' onChange={handleMovement} required>
                                 {Movement}
                             </Select >
                         </Form.Item >
                     </Col>
                     <Col lg={6} md={6} xs={24} >
-                        <Form.Item label="declare value" className="label">
-                            <Input type='text' name='declaredValue' onChange={handleInput} placeholder="type in a value" />
+                        <Form.Item label="declare value *" className="label">
+                            <Input type='text' name='declaredValue' onChange={handleInput} placeholder="type in a value" required />
                         </Form.Item >
                     </Col>
                 </Row>
@@ -281,21 +312,35 @@ function ShippingRequest(props) {
                 <Row gutter={[16, 16]}>
                     <Col lg={12} md={12} xs={24} >
                         <div style={{ width: '100%', display: 'flex' }}>
-                            <Form.Item label="commodity" style={{ marginBottom: 0, width: '50%' }} className="label">
+                            <Form.Item label="commodity *" style={{ marginBottom: 0, width: '50%' }} className="label">
                                 <Radio.Group name="commodity" onChange={handleRadioButton} required>
                                     {CommodityList}
                                 </Radio.Group>
                             </Form.Item>
 
-                            <Form.Item label="mode" style={{ marginBottom: 0, width: '50%' }} className="label">
+                            <Form.Item label="mode *" style={{ marginBottom: 0, width: '50%' }} className="label">
                                 <Radio.Group name="mode" onChange={handleRadioButton} required>
                                     {ModeList}
                                 </Radio.Group>
                             </Form.Item>
                         </div>
                     </Col>
+                    <Col lg={6} md={6} xs={24} >
+                        <Form.Item label="Vendor">
+                            <Select defaultValue="Select Vendor" style={{ width: '100%' }} onChange={handleVendors}>
+                                {VendorCompany}
+                            </Select>
+                        </Form.Item>
+                    </Col>
+                    <Col lg={6} md={6} xs={24} >
+                        <Form.Item label="Consignee">
+                            <Select defaultValue="Select Consignee" style={{ width: '100%' }} onChange={handleConsignees}>
+                                {ConsigneeCompany}
+                            </Select>
+                        </Form.Item>
+                    </Col>
                     <Col lg={12} md={12} xs={24} >
-                        <Form.Item label="HWD" style={{ marginBottom: 0 }} className="label">
+                        <Form.Item label="HWD *" style={{ marginBottom: 0 }} className="label">
                             <div style={{ display: 'flex', flexDirection: 'row' }}>
                                 <Input
                                     type='number'
@@ -320,29 +365,32 @@ function ShippingRequest(props) {
                                 />
                             </div>
                         </Form.Item>
+
                     </Col>
+
+
                 </Row>
 
                 <Row gutter={[16, 16]}>
                     <Col lg={6} md={6} xs={24} >
-                        <Form.Item label="commodity description" style={{ marginBottom: 0 }} className="label">
+                        <Form.Item label="commodity description *" style={{ marginBottom: 0 }} className="label">
                             <Input type='text' name='description' placeholder="year, make and model" onChange={handleInput} required />
                         </Form.Item>
                     </Col>
                     <Col lg={6} md={6} xs={24} >
-                        <Form.Item label="weight" style={{ marginBottom: 0 }} className="label">
+                        <Form.Item label="weight *" style={{ marginBottom: 0 }} className="label">
                             <Input type='text' name='weight' onChange={handleInput} required />
                         </Form.Item>
                     </Col>
 
                     <Col lg={6} md={6} xs={24} >
-                        <Form.Item label="quantity" style={{ marginBottom: 0 }} className="label">
+                        <Form.Item label="quantity *" style={{ marginBottom: 0 }} className="label">
                             <Input type='text' name='quantity' onChange={handleInput} required />
                         </Form.Item>
                     </Col>
 
                     <Col lg={6} md={6} xs={24} >
-                        <Form.Item label="pieces" style={{ marginBottom: 0 }} className="label">
+                        <Form.Item label="pieces *" style={{ marginBottom: 0 }} className="label">
                             <Select name="dimension" defaultValue="1" onChange={handlePieces} required >
                                 {pieces}
                             </Select >
@@ -352,7 +400,7 @@ function ShippingRequest(props) {
 
                 <Row gutter={[16, 16]}>
                     <Col lg={12} md={12} xs={24} >
-                        <h3>Shipping From</h3>
+                        <h3>Shipping From *</h3>
                         <Form.Item style={{ marginBottom: 0 }} className="label">
                             <Select name="ShipFromCountries" defaultValue="United States" onChange={handleFromCountry} id="countries" required>
                                 {ShipFromCountries}
@@ -377,7 +425,7 @@ function ShippingRequest(props) {
                     </Col>
 
                     <Col lg={12} md={12} xs={24} >
-                        <h3>Shipping To</h3>
+                        <h3>Shipping To *</h3>
                         <Form.Item style={{ marginBottom: 0 }} className="label">
                             <Select name="shipToCountries" defaultValue="select country" onChange={handleToCountry} required >
                                 {ShipToCountries}
@@ -412,7 +460,7 @@ function ShippingRequest(props) {
                 </Form.Item>
                 <br />
                 <Button
-                    type="primary" htmlType="submit" className="login-form-button" style={{ minWidth: '30%' }} onClick={handleSubmit}
+                    type="primary" htmlType="submit" className="login-form-button" style={{ minWidth: '30%' }} onSubmit={handleSubmit}
                 >
                     Submit
                 </Button>

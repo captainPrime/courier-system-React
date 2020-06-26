@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import LeftMenu from './Sections/LeftMenu';
 import RightMenu from './Sections/RightMenu';
+import RightMenu2 from './Sections/RightMenu2';
 import { Drawer, Button, Icon } from 'antd';
 import './Sections/Navbar.css';
 
@@ -25,17 +26,17 @@ function NavBar() {
           <LeftMenu mode="horizontal" />
         </div>
         <div className="menu_rigth">
-          <RightMenu mode="horizontal" />
+          <RightMenu2 mode="horizontal" />
         </div>
         <Button
           className="menu__mobile-button"
           type="primary"
           onClick={showDrawer}
         >
-          <Icon type="align-right" />
+          <Icon type="menu" />
         </Button>
         <Drawer
-          title="Basic Drawer"
+          title="LOGO"
           placement="right"
           className="menu_drawer"
           closable={false}

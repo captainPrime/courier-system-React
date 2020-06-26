@@ -28,7 +28,7 @@ function AdminSingleShipments(props) {
 
           
             })
-    })
+    }, [])
 
     const ShipmentStatus = status.map((item, index) => {
         return <Select.Option key={index} value={item}>{item}</Select.Option>
