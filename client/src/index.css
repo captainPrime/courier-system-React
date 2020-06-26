@@ -54,6 +54,25 @@ tr:nth-child(even){
   font-weight: bold;
 }
 
+.content{
+ /* paddingTop: '69px' ,*/ 
+ padding: '40px'; 
+ min-height: 'calc(100vh - 80px)'; 
+ width: "80%";
+  float: "right"
+}
+
+.logout{
+  color: rgb(160, 159, 159)
+}
+
+.logout:hover{
+  color: blue;
+}
+
+.Aside{
+  width: "20%"; float: 'left'; padding-top: '99px'; position: 'fixed'; height: "100%"
+}
 
 .input-feedback {
   color: red;
@@ -73,15 +92,26 @@ tr:nth-child(even){
 }
 
 .star{
-  color: red;
+  color: rgba(142, 228, 175, 0.315);
 }
 
 .field{
   width: 100%;
 }
 
-@media (max-width: 575.98px) { 
+
+@media (max-width: 767.98px) { 
   .container2{
     width: 250px;
   }
+
+  .content{
+    width: 100% !important;
+    padding: 40px;
+  }
+
+  .Aside{
+    display: none;
+  }
+
 }

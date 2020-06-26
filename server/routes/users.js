@@ -139,13 +139,6 @@ router.get("/getUser", auth, (req, res) => {
 
 router.post("/updateProfile", auth, (req, res) => {
 
-    bcrypt.genSalt(saltRounds, function (err, salt) {
-        if (err) return (err);
-
-        bcrypt.hash(req.body.password, salt, function (err, hash) {
-            if (err) return (err);
-            req.body.password = hash
-
             User.findOneAndUpdate(
                 { _id: req.user._id },
                 {
@@ -163,7 +156,6 @@ router.post("/updateProfile", auth, (req, res) => {
                         phone2: req.body.phone2,
                         username: req.body.username,
                         email: req.body.email,
-                        password: hash
                     }
                 },
 
@@ -175,8 +167,7 @@ router.post("/updateProfile", auth, (req, res) => {
                     res.status(200).json({ success: true })
                 }
             )
-        })
-    })
+    
 
 });
 
@@ -232,7 +223,7 @@ router.post('/getConsignee', auth, (req, res) => {
     else if (req.body.Request === undefined || req.body.Filter.UI === "" || req.body.Filter.FirstName === "" || req.body.Filter.Company === "" || req.body.Filter.LastName === "") {
         Consignee.find({ writer: req.user._id })
             .exec((err, searchedConsignee) => {
-                console.log(searchedConsignee)
+
                 if (err) return res.json({ success: false, err });
                 return res.status(200).json({
                     success: true,
@@ -286,7 +277,7 @@ router.get('/vendors', auth, (req, res) => {
 router.post('/getVendor', auth, (req, res) => {
 
     findArg = req.body.Filter
-    if (req.body.Request) { 
+    if (req.body.Request) {
 
         Vendor.find(findArg)
             .exec((err, searchedVendor) => {
@@ -302,7 +293,7 @@ router.post('/getVendor', auth, (req, res) => {
     else if (req.body.Request === undefined || req.body.Filter.UI === "" || req.body.Filter.FirstName === "" || req.body.Filter.Company === "" || req.body.Filter.LastName === "") {
         Vendor.find({ writer: req.user._id })
             .exec((err, searchedVendor) => {
-                
+
                 if (err) return res.json({ success: false, err });
                 return res.status(200).json({
                     success: true,
@@ -311,7 +302,38 @@ router.post('/getVendor', auth, (req, res) => {
             })
     }
 })
+
+
+//find VENDOR OR CONSIGNEE
+
+router.get('/user_by_ui', auth, (req, res) => {
+    let type = req.query.type
+
+    if (type === "Vendor") {
+        Vendor.findOne({ writer: req.user._id, _id: req.query.id },
+            (err, result) => {
+                if (err) return res.status(400).json({ success: false })
+                return res.status(200).json({
+                    success: true,
+                    result
+                })
+            }
+        )
+    }
+
+    else{
+        Consignee.findOne({ writer: req.user._id, _id: req.query.id },
+            (err, result) => {
+                if (err) return res.status(400).json({ success: false })
+                return res.status(200).json({
+                    success: true,
+                    result
+                })
+            }
+        )
+    }
     
+})
 
 
 module.exports = router;

@@ -57,6 +57,11 @@ const consigneeSchema = mongoose.Schema({
     Others: {
         type: String
     },
+
+    typeOfRequest: {
+        type: String,
+        default: "Consignee"
+    }
     //know when shipping request was made 
 }, { timestamps: true })
 

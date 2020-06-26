@@ -43,7 +43,7 @@ function AdminDashboard() {
 
         getAdminShippingRequest(variables)
         getAdminInlandRequest(variables)
-    })
+    }, [])
 
 
 

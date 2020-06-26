@@ -5,6 +5,7 @@ import RequestFilter from './Filter'
 import Axios from 'axios'
 
 function Vendor(props) {
+
     const [Result, setResult] = useState(false)
     const [ShowSearch, setShowSearch] = useState(true)
     const [showAdd, setShowAdd] = useState(false)
@@ -16,6 +17,8 @@ function Vendor(props) {
     const [VendorArray, setVendorArray] = useState([])
     const [searchValue, setSearchValue] = useState(false)
     const [Filter, setFilter] = useState({})
+
+
     //user ID from redux state
     const writer = props.user.userData
     const handleChange = (event) => {
@@ -65,7 +68,7 @@ function Vendor(props) {
                             <Button type="primary" style={{ width: '100%' }} onClick={onSearch}>Search</Button>
                         </Col>
                         <Col lg={6} md={6} sm={12}>
-                            <Button type="primary" style={{ width: '100%' }} onClick={handleAddButton}>Add new Vendor</Button>
+                            <Button type="primary" style={{ width: '110%' }} onClick={handleAddButton}>Add new Vendor</Button>
                         </Col>
                     </Row>
                     <br />

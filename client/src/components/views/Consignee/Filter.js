@@ -1,11 +1,11 @@
-import React, { useEffect, useState } from 'react'
+import React, {  useState } from 'react'
 import Axios from 'axios'
 import { message, table, Empty, Button } from 'antd'
 function RequestFilter(props) {
     return (
         <div style={{ width: '100%', margin: '3em auto' }} className="List-Area">
             <br /><br />
-            {props.ConsigneeArray.length >0 && props.ConsigneeArray !== null ?
+            {props.ConsigneeArray.length > 0 && props.ConsigneeArray !== null ?
                 <div>
                     <div style={{ overflow: 'scroll', }}>
                         <table>
@@ -25,7 +25,7 @@ function RequestFilter(props) {
                             <tbody>
                                 {props.ConsigneeArray !== null && props.ConsigneeArray.map((item, index) => (
                                     <tr key={index}>
-                                        <td><a href={`/shipment/${item.UI}/${item.typeOFRequest}`}>{item.UI}</a></td>
+                                        <td><a href={`/user/${item.typeOfRequest}/${item._id}`}>{item.UI}</a></td>
                                         <td>{item.Company}</td>
                                         <td>{item.FirstName}</td>
                                         <td>{item.LastName}</td>

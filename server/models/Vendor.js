@@ -65,6 +65,11 @@ const vendorSchema = mongoose.Schema({
     Others: {
         type: String
     },
+
+    typeOfRequest: {
+        type: String,
+        default: "Vendor"
+    }
     //know when shipping request was made 
 }, { timestamps: true })
 

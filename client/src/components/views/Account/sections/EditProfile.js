@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react'
-import { Modal, Button, Input, message, Form ,Row, Col, Icon} from 'antd';
+import { Modal, Button, Input, message, Form, Row, Col, Icon } from 'antd';
 import Axios from 'axios'
 import { Formik } from 'formik';
 import * as Yup from 'yup';
@@ -18,7 +18,6 @@ function EditProfile(props) {
     const [phone1, setPhone1] = useState(props.phone1)
     const [phone2, setPhone2] = useState(props.phone2)
     const [username, setUserName] = useState(props.username)
-    const [password, setPassword] = useState(props.password)
 
     const showModal = () => {
         setvisible(true)
@@ -47,7 +46,7 @@ function EditProfile(props) {
         else if (name === 'phone1') setPhone1(value)
         else if (name === 'phone2') setPhone2(value)
         else if (name === 'userName') setUserName(value)
-       
+
 
     }
 
@@ -55,15 +54,11 @@ function EditProfile(props) {
         <Formik
             initialValues={{
                 email: props.email,
-                password: '',
             }}
             validationSchema={Yup.object().shape({
                 email: Yup.string()
                     .email('Email is invalid'),
 
-                password: Yup.string()
-                    .min(6, 'Password must be at least 6 characters')
-                    .required('Password is required'),
             })}
             onSubmit={(values, { setSubmitting }) => {
 
@@ -80,15 +75,14 @@ function EditProfile(props) {
                     phone1,
                     phone2,
                     username,
-                    password : values.password,
-                    email: values.email,    
+                    email: values.email,
                 }
 
                 Axios.post('/api/users/updateprofile', variables)
                     .then(response => {
                         if (response.data.success) {
-                            message.success('Profile details Successfully updated', 10)
-                            //window.location.reload(true)
+                            message.success('Profile Details Successfully updated', 10)
+                            window.location.reload(true)
                         }
                     })
                 setvisible(false)
@@ -125,7 +119,7 @@ function EditProfile(props) {
                                 </Col>
                                 <Col lg={8} md={12} xs={24} >
                                     <Form.Item label="First Name" style={{ marginBottom: 0 }} className="label">
-                                        <Input type='text' name='firstname'value={name} onChange={handleInput} />
+                                        <Input type='text' name='firstname' value={name} onChange={handleInput} />
                                     </Form.Item>
                                 </Col>
 
@@ -135,7 +129,7 @@ function EditProfile(props) {
                                     </Form.Item>
                                 </Col>
 
-                             
+
                             </Row>
 
                             <Row gutter={[16, 16]}>
@@ -192,49 +186,29 @@ function EditProfile(props) {
                             <h3>User Information</h3>
                             <Row gutter={[16, 16]}>
 
-                                <Col lg={8} md={12} xs={24} >
-                                    <Form.Item  style={{ marginBottom: 0 }} className="label">
+                                <Col lg={12} md={12} xs={24} >
+                                    <Form.Item style={{ marginBottom: 0 }} className="label">
                                         <Input type='text' name='userName' value={username} onChange={handleInput} />
                                     </Form.Item>
                                 </Col>
 
-                                <Col lg={8} md={12} xs={24} >
-                                    <Form.Item>
-                                        <Input.Password
-                                        id="password"
-                                        prefix={<Icon type="lock" style={{ color: 'rgba(0,0,0,.25)' }} />}
-                                        placeholder="Enter your password or change password"
-                                        type="password"
-                                        value={values.password}
-                                        onChange={handleChange}
-                                        onBlur={handleBlur}
-                                        className={
-                                            errors.password && touched.password ? 'text-input error' : 'text-input'
-                                        }
-                                        />
-                                        {errors.password && touched.password && (
-                                        <div className="input-feedback">{errors.password}</div>
-                                        )}
-                                    </Form.Item>
-                                </Col>
 
-                                <Col lg={8} md={12} xs={24} >
-                                    <Form.Item  className="label" style={{marginTop: '-17px'}}>
-                                    <Input id="email" onBlur={handleBlur} type="email" placeholder="email" style={{ marginTop: '20px', marginBottom: '20px' }} onChange={handleChange} value={values.email}
-                                        className={
-                                            errors.email && touched.email ? 'text-input error' : 'text-input'
-                                        }
-                                    />
-                                    {errors.email && touched.email && (
-                                <div style={{marginTop: '-27px'}} className="input-feedback">{errors.email}</div>
-                            )}
+
+                                <Col lg={12} md={12} xs={24} >
+                                    <Form.Item className="label" style={{ marginTop: '-17px' }}>
+                                        <Input id="email" onBlur={handleBlur} type="email" placeholder="email" style={{ marginTop: '20px', marginBottom: '20px' }} onChange={handleChange} value={values.email}
+                                            className={
+                                                errors.email && touched.email ? 'text-input error' : 'text-input'
+                                            }
+                                        />
+                                        {errors.email && touched.email && (
+                                            <div style={{ marginTop: '-27px' }} className="input-feedback">{errors.email}</div>
+                                        )}
                                     </Form.Item>
                                 </Col>
 
 
                             </Row>
-
-                            
 
                             {/*     <Input.Password type="text" placeholder="new password" style={{ marginTop: '20px' }} />
                                    <Input.Password type="text" placeholder="confirm new password" style={{ marginTop: '20px' }} /> */}

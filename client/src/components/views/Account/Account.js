@@ -14,7 +14,9 @@ function Account(props) {
             .then(response => {
                 setUser(response.data.userInfo)
             })
-    })
+    }, [])
+
+    console.log(Profile)
 
     const [Company, setComapny] = useState()
     const [FirstName, setFirstName] = useState()

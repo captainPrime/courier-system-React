@@ -65,7 +65,7 @@ function Consignee(props) {
                             <Button type="primary" style={{ width: '100%' }} onClick={onSearch}>Search</Button>
                         </Col>
                         <Col lg={6} md={6} sm={12}>
-                            <Button type="primary" style={{ width: '100%' }} onClick={handleAddButton}>Add new Consignee</Button>
+                            <Button type="primary" style={{ width: '120%' }} onClick={handleAddButton}>Add new Consignee</Button>
                         </Col>
                     </Row>
                     <br />

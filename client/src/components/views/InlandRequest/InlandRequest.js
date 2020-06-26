@@ -60,6 +60,8 @@ function InlandRequest(props) {
     const [VendorList, setVendorList] = useState([])
     const [ConsigneeList, setConsigneeList] = useState([])
 
+    console.log(Vendor)
+
     useEffect(() => {
         Axios.get('/api/users/vendors')
             .then(response => {
@@ -74,7 +76,7 @@ function InlandRequest(props) {
                     setConsigneeList(response.data.consignees)
                 }
             })
-    }, [Vendor, Consignee])
+    }, [])
 
 
     const VendorCompany = VendorList.map((Item, index) => {
@@ -90,7 +92,7 @@ function InlandRequest(props) {
     })
     const handleConsignees = (value) => {
         setConsignee(value)
-        
+
     }
 
     //===============================================
@@ -267,7 +269,8 @@ function InlandRequest(props) {
             .then(response => {
                 if (response.data.success) {
                     message.success('Request successfully recorded');
-                    props.history.push('/inland-request');
+                    //props.history.push('/inland-request');
+                    window.location.reload(true)
                 }
 
                 else {
@@ -398,23 +401,23 @@ function InlandRequest(props) {
                         <div>
                             <Col lg={6} md={6} xs={24} >
                                 <Form.Item className="label">
-                                    <Input name="VIN" placeholder="enter #VIN" onChange={handleInput} required/>
+                                    <Input name="VIN" placeholder="enter #VIN" onChange={handleInput} required />
                                 </Form.Item >
                             </Col>
 
                             <Col lg={3} md={6} xs={24} >
                                 <Form.Item className="label">
-                                    <Input name="year" placeholder="year" onChange={handleInput} required/>
+                                    <Input name="year" placeholder="year" onChange={handleInput} required />
                                 </Form.Item >
                             </Col>
                             <Col lg={3} md={6} xs={24} >
                                 <Form.Item className="label">
-                                    <Input name="make" placeholder="make" onChange={handleInput} required required/>
+                                    <Input name="make" placeholder="make" onChange={handleInput} required required />
                                 </Form.Item >
                             </Col>
                             <Col lg={3} md={6} xs={24} >
                                 <Form.Item className="label">
-                                    <Input name="model" placeholder="model" onChange={handleInput} required/>
+                                    <Input name="model" placeholder="model" onChange={handleInput} required />
                                 </Form.Item >
                             </Col>
                             <Col lg={6} md={6} xs={24} >
@@ -438,13 +441,13 @@ function InlandRequest(props) {
 
                             <Col lg={3} md={6} xs={24} >
                                 <Form.Item className="label">
-                                    <Input name="height" placeholder="height" onChange={handleInput} required/>
+                                    <Input name="height" placeholder="height" onChange={handleInput} required />
                                 </Form.Item >
                             </Col>
 
                             <Col lg={3} md={6} xs={24} >
                                 <Form.Item className="label">
-                                    <Input name="width" placeholder="width" onChange={handleInput} required/>
+                                    <Input name="width" placeholder="width" onChange={handleInput} required />
                                 </Form.Item >
                             </Col>
                             <Col lg={3} md={6} xs={24} >
@@ -455,7 +458,7 @@ function InlandRequest(props) {
 
                             <Col lg={3} md={6} xs={24} >
                                 <Form.Item className="label">
-                                    <Input name="weight" placeholder="kgs" onChange={handleInput} required/>
+                                    <Input name="weight" placeholder="kgs" onChange={handleInput} required />
                                 </Form.Item >
                             </Col>
                         </div>
@@ -471,7 +474,7 @@ function InlandRequest(props) {
 
                             <Col lg={3} md={6} xs={24} >
                                 <Form.Item className="label">
-                                    <Input name="cargoDestination" placeholder="cargo destination" onChange={handleInput} required/>
+                                    <Input name="cargoDestination" placeholder="cargo destination" onChange={handleInput} required />
                                 </Form.Item >
                             </Col>
 
@@ -496,24 +499,24 @@ function InlandRequest(props) {
 
                             <Col lg={3} md={6} xs={24} >
                                 <Form.Item className="label">
-                                    <Input name="POheight" placeholder="height" onChange={handleInput} required/>
+                                    <Input name="POheight" placeholder="height" onChange={handleInput} required />
                                 </Form.Item >
                             </Col>
 
                             <Col lg={3} md={6} xs={24} >
                                 <Form.Item className="label">
-                                    <Input name="POwidth" placeholder="width" onChange={handleInput} required/>
+                                    <Input name="POwidth" placeholder="width" onChange={handleInput} required />
                                 </Form.Item >
                             </Col>
                             <Col lg={3} md={6} xs={24} >
                                 <Form.Item className="label">
-                                    <Input name="POdimension" placeholder="dimension" onChange={handleInput} required/>
+                                    <Input name="POdimension" placeholder="dimension" onChange={handleInput} required />
                                 </Form.Item >
                             </Col>
 
                             <Col lg={3} md={6} xs={24} >
                                 <Form.Item className="label">
-                                    <Input name="POweight" placeholder="kgs" onSubmit={handleInput} required/>
+                                    <Input name="POweight" placeholder="kgs" onSubmit={handleInput} required />
                                 </Form.Item >
                             </Col>
                         </div>

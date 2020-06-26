@@ -5,6 +5,12 @@ import axios from 'axios';
 import { USER_SERVER } from '../../../Config';
 import { withRouter } from 'react-router-dom';
 import { useSelector } from "react-redux";
+import { borderRadius } from '../../../../../node_modules/@material-ui/system';
+import { UserOutline } from '@ant-design/icons'
+import { Icon } from 'antd'
+
+const SubMenu = Menu.SubMenu;
+const MenuItemGroup = Menu.ItemGroup;
 
 function RightMenu(props) {
   const user = useSelector(state => state.user)
@@ -19,6 +25,7 @@ function RightMenu(props) {
     });
   };
 
+  console.log(user.userData)
   if (user.userData && !user.userData.isAuth && !user.isAdmin) {
     return (
       <Menu mode={props.mode}>
@@ -48,44 +55,51 @@ function RightMenu(props) {
 
   else {
     return (
-      <Menu mode={props.mode}>
-        <Menu.Item key="mail">
-          <a href="/">Home</a>
+      <Menu mode={props.mode}
+      >
+         <Menu.Item key="mail">
+          <a href="/"> <Icon type="home" /> Home</a>
         </Menu.Item>
 
 
             <Menu.Item key="freight">
-          <a href="/freight-list">Freights</a>
+          <a href="/freight-list" ><Icon type="ship" /> Freights</a>
         </Menu.Item>
 
 
         <Menu.Item key="consignee">
-          <a href="/consignee">Consignee</a>
+          <a href="/consignee"><Icon type="user" /> Consignee</a>
         </Menu.Item>
 
         <Menu.Item key="vendor">
-          <a href="/vendor">Vendor</a>
+          <a href="/vendor"><Icon type="user-add" /> Vendor</a>
         </Menu.Item>
    
         <Menu.Item key="shipping">
-          <a href="/shipping-request">Shipping-Request</a>
+          <a href="/shipping-request"><Icon type="ship" /> Shipping-Request</a>
         </Menu.Item>
 
         <Menu.Item key="inland">
-          <a href="/inland-request">Inland-Request</a>
+          <a href="/inland-request"><Icon type="car" /> Inland-Request</a>
         </Menu.Item>
 
-        <Menu.Item key="account">
+       {/*  <Menu.Item key="account">
           <a href="/account">Account</a>
-        </Menu.Item>
+        </Menu.Item> */}
 
             <Menu.Item key="inventory">
-          <a href="/inventory">Inventory</a>
+          <a href="/inventory"><Icon type="shopping" /> Inventory</a>
         </Menu.Item>
-
-        <Menu.Item key="logout">
+ 
+        {/* <Menu.Item key="logout">
           <a onClick={logoutHandler}>Logout</a>
-        </Menu.Item>
+        </Menu.Item> */}
+    
+        <SubMenu title={<a className="logout" href="/account">{user.userData.name} <Icon style={{ padding: '5px', backgroundColor: "#e9e9e9", borderRadius: "100%", color: 'black' }} type="user" /></a>}>
+          <Menu.Item>
+            <a onClick={logoutHandler}>Logout</a>
+          </Menu.Item>
+        </SubMenu>
       </Menu>
     )
   }

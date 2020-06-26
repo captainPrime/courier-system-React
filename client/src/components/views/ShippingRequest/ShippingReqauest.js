@@ -62,7 +62,7 @@ function ShippingRequest(props) {
                     setConsigneeList(response.data.consignees)
                 }
             })
-    }, [Vendor, Consignee])
+    }, [])
 
 
     const VendorCompany = VendorList.map((Item, index) => {
@@ -250,7 +250,8 @@ function ShippingRequest(props) {
             .then(response => {
                 if (response.data.success) {
                     message.success('Product successfully uploaded');
-                    props.history.push("/shipping-request");
+                    //props.history.push("/shipping-request");
+                    window.location.reload(true)
                 }
 
                 else {
@@ -303,7 +304,7 @@ function ShippingRequest(props) {
                     </Col>
                     <Col lg={6} md={6} xs={24} >
                         <Form.Item label="declare value *" className="label">
-                            <Input type='text' name='declaredValue' onChange={handleInput} placeholder="type in a value" required/>
+                            <Input type='text' name='declaredValue' onChange={handleInput} placeholder="type in a value" required />
                         </Form.Item >
                     </Col>
                 </Row>

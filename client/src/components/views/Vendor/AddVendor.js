@@ -135,7 +135,7 @@ function AddVendor(props) {
                             </Col>
                             <Col lg={4} md={12} sm={24} >
                                 <Form.Item label="Country *">
-                                    <Select defaultValue="Select Country" style={{ width: "100%" }} required>
+                                    <Select defaultValue="Select Country" style={{ width: "100%" }} onChange={handleCountry} required>
                                         {CountryList}
                                     </Select>
                                 </Form.Item>

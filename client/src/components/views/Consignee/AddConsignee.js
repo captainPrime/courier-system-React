@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import React, { useState } from 'react'
 import { Button, Row, Col, Form, Input, Select, message } from 'antd'
 import { countryList } from './data'
 import TextArea from '../../../../node_modules/antd/lib/input/TextArea';
@@ -21,6 +21,8 @@ function AddConsignee(props) {
     const [Phone2, setPhone2] = useState()
     const [Email, setEmail] = useState()
     const [Others, setOthers] = useState()
+
+    console.log(Country)
     const CountryList = countryList.map((item, index) => {
         return <Select.Option key={index} value={item}>{item}</Select.Option>
     })
@@ -122,7 +124,7 @@ function AddConsignee(props) {
                             </Col>
                             <Col lg={4} md={12} sm={24} >
                                 <Form.Item label="Country *">
-                                    <Select defaultValue="Select Country" style={{ width: "100%" }} >
+                                    <Select defaultValue="Select Country" style={{ width: "100%" }} onChange={handleCountry} >
                                         {CountryList}
                                     </Select>
                                 </Form.Item>

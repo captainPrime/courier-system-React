@@ -17,7 +17,7 @@ function SingleShipments(props) {
                 setShipment(response.data[0])
                 //console.log(response.data[0])
             })
-    })
+    }, [])
 
     return (
         <div className="postPage" style={{ width: '100%' }}>
