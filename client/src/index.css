@@ -54,6 +54,16 @@ tr:nth-child(even){
   font-weight: bold;
 }
 
+.space{
+  padding: 8%;
+  background: white;
+  text-align: center;
+  border-radius: 25px;
+  font-weight: 500;
+  font-size: 15px;
+}
+
+
 .content{
  /* paddingTop: '69px' ,*/ 
  padding: '40px'; 

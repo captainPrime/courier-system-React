@@ -14,6 +14,7 @@ import {
     DesktopOutline,
     ContainerOutline,
     MailOutline,
+    SyncOutline
 } from '@ant-design/icons';
 
 const { SubMenu } = Menu;
@@ -90,7 +91,7 @@ function Sidebar(props) {
 
 
                     <Menu.Item key="freight">
-                        <a href="/freight-list"><Icon type="" />Freights</a>
+                        <a href="/freight-list"><Icon type="search" />Freights</a>
                     </Menu.Item>
 
 
@@ -99,11 +100,11 @@ function Sidebar(props) {
                     </Menu.Item>
 
                     <Menu.Item key="vendor">
-                        <a href="/vendor"> <Icon type="user-add"/>Vendor</a>
+                        <a href="/vendor"> <Icon type="team"/>Vendor</a>
                     </Menu.Item>
 
                     <Menu.Item key="shipping">
-                        <a href="/shipping-request"> <Icon type="ship" />Shipping-Request</a>
+                        <a href="/shipping-request"> <Icon type="global" />Shipping-Request</a>
                     </Menu.Item>
 
                     <Menu.Item key="inland">

@@ -304,4 +304,31 @@ router.post("/updateRequest", (req, res) => {
     }
 })
 
+router.get('/getAllRequest', auth, (req, res) => {
+    const Request = [];
+    ShippingRequest.find({ writer: req.user._id },
+        (err, request1) => {
+            InlandRequest.find({ writer: req.user._id },
+                (err, request) => {
+                    if (err) return res.status(400).json({
+        
+                        success: false,
+                        message: 'failed to fetch request'
+                    })
+        
+                    return res.status(200).json({
+                        success: true,
+                        InlandRequest: request,
+                        ShippingRequest: request1
+                    })
+                }
+            )
+        }
+    )
+
+
+
+
+})
+
 module.exports = router;

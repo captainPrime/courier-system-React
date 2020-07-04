@@ -6,7 +6,7 @@ import { USER_SERVER } from '../../../Config';
 import { withRouter } from 'react-router-dom';
 import { useSelector } from "react-redux";
 import { borderRadius } from '../../../../../node_modules/@material-ui/system';
-import { UserOutline } from '@ant-design/icons'
+import { UserOutline, SyncOutline } from '@ant-design/icons'
 import { Icon } from 'antd'
 
 const SubMenu = Menu.SubMenu;
@@ -63,7 +63,7 @@ function RightMenu(props) {
 
 
             <Menu.Item key="freight">
-          <a href="/freight-list" ><Icon type="ship" /> Freights</a>
+          <a href="/freight-list" ><Icon type="search" /> Freights</a>
         </Menu.Item>
 
 
@@ -72,11 +72,11 @@ function RightMenu(props) {
         </Menu.Item>
 
         <Menu.Item key="vendor">
-          <a href="/vendor"><Icon type="user-add" /> Vendor</a>
+          <a href="/vendor"><Icon type="team" /> Vendor</a>
         </Menu.Item>
    
         <Menu.Item key="shipping">
-          <a href="/shipping-request"><Icon type="ship" /> Shipping-Request</a>
+          <a href="/shipping-request"><Icon type="global" /> Shipping-Request</a>
         </Menu.Item>
 
         <Menu.Item key="inland">
